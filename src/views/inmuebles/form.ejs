@@ -1,0 +1,34 @@
+<%- include('../partials/header') %>
+<h1><%= item.id ? 'Editar inmueble' : 'Nuevo inmueble' %></h1>
+<form method="POST" action="<%= action %>" class="form-grid">
+  <div><label>Propietario</label>
+    <select name="propietario_id" required>
+      <option value="">Seleccione...</option>
+      <% propietarios.forEach(p => { %>
+      <option value="<%= p.id %>" <%= item.propietario_id == p.id ? 'selected' : '' %>><%= p.nombre %></option>
+      <% }) %>
+    </select>
+  </div>
+  <div><label>Dirección</label><input name="direccion" value="<%= item.direccion || '' %>" required></div>
+  <div><label>Tipo</label>
+    <select name="tipo">
+      <% ['Vivienda urbana','Local comercial','Rural'].forEach(t => { %>
+      <option <%= item.tipo === t ? 'selected' : '' %>><%= t %></option>
+      <% }) %>
+    </select>
+  </div>
+  <div><label>Estrato</label><input name="estrato" type="number" min="1" max="6" value="<%= item.estrato || '' %>"></div>
+  <div><label>Estado</label>
+    <select name="estado">
+      <% ['Disponible','Arrendado','Mantenimiento'].forEach(t => { %>
+      <option <%= item.estado === t ? 'selected' : '' %>><%= t %></option>
+      <% }) %>
+    </select>
+  </div>
+  <div><label>Valor de referencia</label><input name="valor_referencia" type="number" step="0.01" value="<%= item.valor_referencia || '' %>"></div>
+  <div style="grid-column:1/-1;margin-top:8px;">
+    <button class="btn" type="submit">Guardar</button>
+    <a href="/inmuebles" style="margin-left:8px;">Cancelar</a>
+  </div>
+</form>
+<%- include('../partials/footer') %>

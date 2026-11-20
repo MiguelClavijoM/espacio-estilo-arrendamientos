@@ -1,0 +1,26 @@
+<%- include('../partials/header') %>
+<div class="toolbar"><h1>Incrementos contractuales</h1><a class="btn" href="/incrementos/nuevo">+ Nuevo incremento</a></div>
+<table>
+  <tr><th>ID</th><th>Contrato</th><th>Inmueble</th><th>Arrendatario</th><th>Fecha</th><th>Tipo</th><th>%</th><th>Canon ant.→nuevo</th><th>Aplicado</th><th>Acciones</th></tr>
+  <% items.forEach(it => { %>
+  <tr>
+    <td><%= it.id %></td><td>#<%= it.contrato_id %></td><td><%= it.inmueble %></td><td><%= it.arrendatario %></td>
+    <td><%= it.fecha %></td><td><%= it.tipo %></td><td><%= it.porcentaje %>%</td>
+    <td>$<%= it.canon_anterior.toLocaleString('es-CO') %> → $<%= it.canon_nuevo.toLocaleString('es-CO') %></td>
+    <td><span class="badge <%= it.aplicado ? 'badge-ok' : 'badge-warn' %>"><%= it.aplicado ? 'Sí' : 'Pendiente' %></span></td>
+    <td class="actions">
+      <% if (!it.aplicado || Number(it.aplicado) === 0) { %>
+      <form class="inline" method="POST" action="/incrementos/<%= it.id %>/aplicar">
+        <button class="btn btn-small btn-ok" type="submit">Aplicar</button>
+      </form>
+      <% } %>
+      <a class="btn btn-small" href="/incrementos/<%= it.id %>/editar">Editar</a>
+      <form class="inline" method="POST" action="/incrementos/<%= it.id %>?_method=DELETE" onsubmit="return confirm('¿Eliminar incremento?');">
+        <button class="btn btn-small btn-danger" type="submit">Eliminar</button>
+      </form>
+    </td>
+  </tr>
+  <% }) %>
+  <% if (items.length === 0) { %><tr><td colspan="10" class="empty">No hay incrementos registrados.</td></tr><% } %>
+</table>
+<%- include('../partials/footer') %>

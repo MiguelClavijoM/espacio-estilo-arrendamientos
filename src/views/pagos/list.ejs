@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+<div class="toolbar"><h1>Cánones y Mora</h1><a class="btn" href="/pagos/nuevo">+ Registrar pago</a></div>
+<table>
+  <tr><th>ID</th><th>Contrato</th><th>Inmueble</th><th>Arrendatario</th><th>Periodo</th><th>Valor</th><th>Estado</th><th>Días mora</th><th>Acciones</th></tr>
+  <% items.forEach(it => { %>
+  <tr>
+    <td><%= it.id %></td><td>#<%= it.contrato_id %></td><td><%= it.inmueble %></td><td><%= it.arrendatario %></td>
+    <td><%= it.periodo %></td><td>$<%= it.valor.toLocaleString('es-CO') %></td>
+    <td><span class="badge <%= it.estado === 'Pagado' ? 'badge-ok' : (it.estado === 'En mora' ? 'badge-danger' : 'badge-warn') %>"><%= it.estado %></span></td>
+    <td><%= it.dias_mora %></td>
+    <td class="actions">
+      <a class="btn btn-small" href="/pagos/<%= it.id %>/editar">Editar</a>
+      <form class="inline" method="POST" action="/pagos/<%= it.id %>?_method=DELETE" onsubmit="return confirm('¿Eliminar pago?');">
+        <button class="btn btn-small btn-danger" type="submit">Eliminar</button>
+      </form>
+    </td>
+  </tr>
+  <% }) %>
+  <% if (items.length === 0) { %><tr><td colspan="9" class="empty">No hay pagos registrados.</td></tr><% } %>
+</table>
+<%- include('../partials/footer') %>

@@ -1,0 +1,24 @@
+<%- include('../partials/header') %>
+<h1><%= item.id ? 'Editar pago' : 'Registrar pago' %></h1>
+<form method="POST" action="<%= action %>" class="form-grid">
+  <div><label>Contrato</label>
+    <select name="contrato_id" required>
+      <option value="">Seleccione...</option>
+      <% contratos.forEach(c => { %><option value="<%= c.id %>" <%= item.contrato_id == c.id ? 'selected' : '' %>>#<%= c.id %> — <%= c.inmueble %> (<%= c.arrendatario %>)</option><% }) %>
+    </select>
+  </div>
+  <div><label>Periodo (AAAA-MM)</label><input name="periodo" value="<%= item.periodo || '' %>" placeholder="2026-11" required></div>
+  <div><label>Fecha de pago</label><input name="fecha_pago" type="date" value="<%= item.fecha_pago || '' %>"></div>
+  <div><label>Valor</label><input name="valor" type="number" step="0.01" value="<%= item.valor || '' %>" required></div>
+  <div><label>Estado</label>
+    <select name="estado">
+      <% ['Pagado','Pendiente','En mora'].forEach(t => { %><option <%= item.estado === t ? 'selected' : '' %>><%= t %></option><% }) %>
+    </select>
+  </div>
+  <div><label>Días de mora</label><input name="dias_mora" type="number" min="0" value="<%= item.dias_mora || 0 %>"></div>
+  <div style="grid-column:1/-1;margin-top:8px;">
+    <button class="btn" type="submit">Guardar</button>
+    <a href="/pagos" style="margin-left:8px;">Cancelar</a>
+  </div>
+</form>
+<%- include('../partials/footer') %>

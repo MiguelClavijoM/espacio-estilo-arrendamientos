@@ -1,0 +1,35 @@
+:root{--primary:#1f4e79;--accent:#c6d9f1;--danger:#b00020;--ok:#1e7d32;--warn:#b26a00;--bg:#f5f7fa;}
+*{box-sizing:border-box;}
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:var(--bg);color:#1a1a1a;}
+.navbar{background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:12px 24px;flex-wrap:wrap;}
+.navbar .brand{font-weight:bold;font-size:18px;}
+.navbar .brand span{font-weight:normal;opacity:.85;}
+.navbar ul{list-style:none;display:flex;gap:16px;margin:0;padding:0;flex-wrap:wrap;}
+.navbar a{color:#fff;text-decoration:none;font-size:14px;}
+.navbar a:hover{text-decoration:underline;}
+.container{max-width:1100px;margin:24px auto;padding:0 16px;}
+h1{color:var(--primary);}
+table{width:100%;border-collapse:collapse;background:#fff;margin-top:12px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+th,td{padding:8px 10px;border:1px solid #dde3ea;text-align:left;font-size:14px;}
+th{background:var(--accent);}
+tr:nth-child(even){background:#fafbfc;}
+.btn{display:inline-block;padding:6px 12px;border-radius:4px;background:var(--primary);color:#fff;text-decoration:none;border:none;cursor:pointer;font-size:13px;}
+.btn-danger{background:var(--danger);}
+.btn-ok{background:var(--ok);}
+.btn-small{padding:4px 8px;font-size:12px;}
+.actions a, .actions button{margin-right:4px;}
+form.inline{display:inline;}
+.card{background:#fff;border-radius:6px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:24px;}
+.cards .num{font-size:28px;font-weight:bold;color:var(--primary);}
+.badge{padding:2px 8px;border-radius:10px;font-size:12px;color:#fff;}
+.badge-ok{background:var(--ok);}
+.badge-warn{background:var(--warn);}
+.badge-danger{background:var(--danger);}
+.section-title{margin-top:28px;border-bottom:2px solid var(--accent);padding-bottom:4px;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;max-width:640px;}
+.form-grid label{display:block;font-size:13px;margin-bottom:4px;font-weight:bold;}
+.form-grid input, .form-grid select{width:100%;padding:6px;border:1px solid #ccc;border-radius:4px;}
+.footer{text-align:center;color:#888;font-size:12px;padding:20px;}
+.toolbar{display:flex;justify-content:space-between;align-items:center;}
+.empty{color:#888;font-style:italic;padding:12px 0;}

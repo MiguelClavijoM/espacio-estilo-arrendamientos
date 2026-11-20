@@ -1,0 +1,20 @@
+<%- include('../partials/header') %>
+<div class="toolbar"><h1>Contratos</h1><a class="btn" href="/contratos/nuevo">+ Nuevo contrato</a></div>
+<table>
+  <tr><th>ID</th><th>Inmueble</th><th>Arrendatario</th><th>Propietario</th><th>Canon</th><th>Inicio</th><th>Fin</th><th>Estado</th><th>Acciones</th></tr>
+  <% items.forEach(it => { %>
+  <tr>
+    <td><%= it.id %></td><td><%= it.inmueble %></td><td><%= it.arrendatario %></td><td><%= it.propietario %></td>
+    <td>$<%= it.canon.toLocaleString('es-CO') %></td><td><%= it.fecha_inicio %></td><td><%= it.fecha_fin %></td>
+    <td><span class="badge <%= it.estado === 'Vigente' ? 'badge-ok' : 'badge-danger' %>"><%= it.estado %></span></td>
+    <td class="actions">
+      <a class="btn btn-small" href="/contratos/<%= it.id %>/editar">Editar</a>
+      <form class="inline" method="POST" action="/contratos/<%= it.id %>?_method=DELETE" onsubmit="return confirm('¿Eliminar contrato?');">
+        <button class="btn btn-small btn-danger" type="submit">Eliminar</button>
+      </form>
+    </td>
+  </tr>
+  <% }) %>
+  <% if (items.length === 0) { %><tr><td colspan="9" class="empty">No hay contratos registrados.</td></tr><% } %>
+</table>
+<%- include('../partials/footer') %>

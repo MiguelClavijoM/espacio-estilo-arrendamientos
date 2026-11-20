@@ -1,0 +1,13 @@
+<%- include('../partials/header') %>
+<h1><%= item.id ? 'Editar arrendatario' : 'Nuevo arrendatario' %></h1>
+<form method="POST" action="<%= action %>" class="form-grid">
+  <div><label>Nombre</label><input name="nombre" value="<%= item.nombre || '' %>" required></div>
+  <div><label>Documento</label><input name="documento" value="<%= item.documento || '' %>" required></div>
+  <div><label>Teléfono</label><input name="telefono" value="<%= item.telefono || '' %>"></div>
+  <div><label>Correo</label><input name="correo" type="email" value="<%= item.correo || '' %>"></div>
+  <div style="grid-column:1/-1;margin-top:8px;">
+    <button class="btn" type="submit">Guardar</button>
+    <a href="/arrendatarios" style="margin-left:8px;">Cancelar</a>
+  </div>
+</form>
+<%- include('../partials/footer') %>

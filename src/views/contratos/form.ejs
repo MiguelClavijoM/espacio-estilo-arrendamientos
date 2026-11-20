@@ -1,0 +1,36 @@
+<%- include('../partials/header') %>
+<h1><%= item.id ? 'Editar contrato' : 'Nuevo contrato' %></h1>
+<form method="POST" action="<%= action %>" class="form-grid">
+  <div><label>Inmueble</label>
+    <select name="inmueble_id" required>
+      <option value="">Seleccione...</option>
+      <% inmuebles.forEach(i => { %><option value="<%= i.id %>" <%= item.inmueble_id == i.id ? 'selected' : '' %>><%= i.direccion %></option><% }) %>
+    </select>
+  </div>
+  <div><label>Arrendatario</label>
+    <select name="arrendatario_id" required>
+      <option value="">Seleccione...</option>
+      <% arrendatarios.forEach(a => { %><option value="<%= a.id %>" <%= item.arrendatario_id == a.id ? 'selected' : '' %>><%= a.nombre %></option><% }) %>
+    </select>
+  </div>
+  <div><label>Propietario</label>
+    <select name="propietario_id" required>
+      <option value="">Seleccione...</option>
+      <% propietarios.forEach(p => { %><option value="<%= p.id %>" <%= item.propietario_id == p.id ? 'selected' : '' %>><%= p.nombre %></option><% }) %>
+    </select>
+  </div>
+  <div><label>Canon</label><input name="canon" type="number" step="0.01" value="<%= item.canon || '' %>" required></div>
+  <div><label>Fecha inicio</label><input name="fecha_inicio" type="date" value="<%= item.fecha_inicio || '' %>" required></div>
+  <div><label>Fecha fin</label><input name="fecha_fin" type="date" value="<%= item.fecha_fin || '' %>" required></div>
+  <div><label>Día de pago</label><input name="dia_pago" type="number" min="1" max="28" value="<%= item.dia_pago || 5 %>"></div>
+  <div><label>Estado</label>
+    <select name="estado">
+      <% ['Vigente','Vencido','Terminado'].forEach(t => { %><option <%= item.estado === t ? 'selected' : '' %>><%= t %></option><% }) %>
+    </select>
+  </div>
+  <div style="grid-column:1/-1;margin-top:8px;">
+    <button class="btn" type="submit">Guardar</button>
+    <a href="/contratos" style="margin-left:8px;">Cancelar</a>
+  </div>
+</form>
+<%- include('../partials/footer') %>

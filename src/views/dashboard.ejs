@@ -1,0 +1,58 @@
+<%- include('partials/header') %>
+<h1>Tablero de control</h1>
+
+<div class="cards">
+  <div class="card"><div class="num"><%= totales.propietarios %></div>Propietarios</div>
+  <div class="card"><div class="num"><%= totales.arrendatarios %></div>Arrendatarios</div>
+  <div class="card"><div class="num"><%= totales.inmuebles %></div>Inmuebles</div>
+  <div class="card"><div class="num"><%= totales.contratos_vigentes %></div>Contratos vigentes</div>
+</div>
+
+<h2 class="section-title">Alertas: contratos próximos a vencer (≤90 días)</h2>
+<% if (vencimientos.length === 0) { %>
+  <p class="empty">No hay contratos próximos a vencer.</p>
+<% } else { %>
+<table>
+  <tr><th>Contrato</th><th>Inmueble</th><th>Arrendatario</th><th>Fecha fin</th><th>Días restantes</th></tr>
+  <% vencimientos.forEach(v => { %>
+  <tr>
+    <td>#<%= v.id %></td><td><%= v.inmueble %></td><td><%= v.arrendatario %></td><td><%= v.fecha_fin %></td>
+    <td><span class="badge <%= v.dias_restantes <= 30 ? 'badge-danger' : 'badge-warn' %>"><%= v.dias_restantes %> días</span></td>
+  </tr>
+  <% }) %>
+</table>
+<% } %>
+
+<h2 class="section-title">Alertas: arrendatarios en mora</h2>
+<% if (moras.length === 0) { %>
+  <p class="empty">No hay pagos en mora registrados.</p>
+<% } else { %>
+<table>
+  <tr><th>Contrato</th><th>Inmueble</th><th>Arrendatario</th><th>Periodo</th><th>Valor</th><th>Días de mora</th></tr>
+  <% moras.forEach(m => { %>
+  <tr>
+    <td>#<%= m.contrato_id %></td><td><%= m.inmueble %></td><td><%= m.arrendatario %></td><td><%= m.periodo %></td>
+    <td>$<%= m.valor.toLocaleString('es-CO') %></td>
+    <td><span class="badge badge-danger"><%= m.dias_mora %> días</span></td>
+  </tr>
+  <% }) %>
+</table>
+<% } %>
+
+<h2 class="section-title">Incrementos contractuales pendientes</h2>
+<% if (incrementosPendientes.length === 0) { %>
+  <p class="empty">No hay incrementos pendientes.</p>
+<% } else { %>
+<table>
+  <tr><th>Contrato</th><th>Inmueble</th><th>Arrendatario</th><th>Fecha</th><th>Tipo</th><th>%</th><th>Canon actual → nuevo</th></tr>
+  <% incrementosPendientes.forEach(i => { %>
+  <tr>
+    <td>#<%= i.contrato_id %></td><td><%= i.inmueble %></td><td><%= i.arrendatario %></td><td><%= i.fecha %></td>
+    <td><%= i.tipo %></td><td><%= i.porcentaje %>%</td>
+    <td>$<%= i.canon_anterior.toLocaleString('es-CO') %> → $<%= i.canon_nuevo.toLocaleString('es-CO') %></td>
+  </tr>
+  <% }) %>
+</table>
+<% } %>
+
+<%- include('partials/footer') %>
